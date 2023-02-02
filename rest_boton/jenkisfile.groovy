@@ -4,38 +4,62 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-    
-    stage("build") {
-        when {
-            expression {
-                BRANCH_NAME = 'alerta_dev_infra'
+        stage('Build') {
+          when {
+                branch '*'
+            }
+            steps {
+                sh 'java -version'
+                sh 'npm run build:dev'
             }
         }
-        steps {
-            echo 'buidling the webhook'
-        }
-    }
-
-    stage("test") {
+        stage('Test-sonar'){
         when {
-            expression {
-                env.BRANCH_NAME = 'alerta*'
+                branch '*'
+            }
+            steps {
+                sh 'make check'
+                junit 'reports/**/*.xml'
+            }
+       }
+        stage('Test-veracode'){
+        when {
+                branch '*'
+            }
+            steps {
+                sh 'make check'
+                junit 'reports/**/*.xml'
+            }
+     }
+         stage('Test-publicar'){
+         steps {
+             sh 'make check'
+             junit 'reports/**/*.xml'
+             }
+         }
+        stage('Deploy') {
+            steps {
+                sh 'make publish'
             }
         }
-          steps {
-              echo 'testing the webhook'
-        }
     }
-
-    stage("deploy") {
-        when {
-            expression {
-                env.BRANCH_NAME = 'alerta_dev_infra'
-            }
-        }
-          steps {
-              echo 'deploying the webhook'
-        }
-    }
-
-  }
+         stage('public-toDockerhub') {
+         when {
+             branch 'dev'
+             }
+             steps {
+         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: jenkins_registry_cred_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+             sh "docker login -e ${docker_email} -u ${env.USERNAME} -p ${env.PASSWORD} ${docker_registry_url}"
+             }
+             }
+         }
+     stage('Deploy-qa') {
+         when {
+             branch 'master'
+             }
+             steps {
+             sh 'echo publish'
+             sh 'kubeclt apply -f ingress.yaml'
+         }
+     }
+}
