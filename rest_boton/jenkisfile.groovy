@@ -10,13 +10,12 @@ pipeline {
             }
             steps {
                 sh 'java -version'
-                sh './gradlew build'
+                sh './gradlew build
             }
         }
         stage('Test'){
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml' 
             }
         }
         stage('Deploy') {
