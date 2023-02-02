@@ -13,7 +13,7 @@ pipeline {
                 }
             }
         }
-            stage('Test-sonar'){
+            stage('Test'){
                 steps {
                    echo 'test succesfull'
                 }
