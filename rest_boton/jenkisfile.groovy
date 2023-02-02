@@ -13,8 +13,12 @@ pipeline {
             }
         }
         stage('Test'){
+           when {
+                branch 'master'
+            }
             steps {
                 sh 'make check'
+                junit 'reports/**/*.xml'
             }
         }
         stage('Deploy') {
