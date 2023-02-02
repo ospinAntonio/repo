@@ -19,15 +19,7 @@ pipeline {
                 junit '**/target/*.xml' 
             }
         }
-         stage('Test-veracode'){
-        when {
-                branch 'master'
-            }
-            steps {
-                sh 'make check'
-                junit 'reports/pruebas/prueba.xml'
-            }
-     }
+         
          stage('Test-publicar'){
          steps {
              sh 'make check'
