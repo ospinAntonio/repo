@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
           when {
-                branch '*'
+                branch 'master'
             }
             steps {
                 sh 'java -version'
