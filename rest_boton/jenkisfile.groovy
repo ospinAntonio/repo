@@ -8,7 +8,7 @@ pipeline {
           
             steps {
                 sh 'java -version'
-                sh 'npm run build:dev'
+                sh 'run build:dev'
             }
         }
         stage('Test-sonar'){
