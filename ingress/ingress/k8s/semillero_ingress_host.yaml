@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  namespace: proyecto-semillero
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: semilleros.info
+      http:
+        paths:
+          - path: /rest 
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-clusterip-hola
+                port: 
+                  number: 8080
+          - path: /rest-imagen 
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-clusterip-imagen
+                port: 
+                  number: 8080
+          - path: /rest-boton 
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-clusterip-boton
+                port: 
+                  number: 8080
