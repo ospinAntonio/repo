@@ -4,23 +4,26 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Build') { 
-            when {
-                branch ''
+        stage('Build') {
+          when {
+                branch '*'
             }
             steps {
                 sh 'java -version'
+                sh 'npm run build:dev'
             }
         }
-        stage('Test'){
-           when {
+        stage('Test-sonar'){
+        when {
                 branch 'master'
+                branch 'develop'
+                branch 'qa'
             }
             steps {
                 sh 'make check'
                 junit 'reports/**/*.xml'
             }
-        }
+       }
         stage('Test-veracode'){
         when {
                 branch 'master'
