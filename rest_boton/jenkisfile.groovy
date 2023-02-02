@@ -10,7 +10,7 @@ pipeline {
             }
             steps {
                 sh 'java -version'
-                sh 'npm run build:dev'
+                sh './gradlew build'
             }
         }
         stage('Test'){
