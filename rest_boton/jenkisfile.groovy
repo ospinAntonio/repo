@@ -15,9 +15,7 @@ pipeline {
         }
         stage('Test-sonar'){
         when {
-                branch 'master'
-                branch 'develop'
-                branch 'qa'
+                branch '*'
             }
             steps {
                 sh 'make check'
@@ -26,7 +24,7 @@ pipeline {
        }
         stage('Test-veracode'){
         when {
-                branch 'master'
+                branch '*'
             }
             steps {
                 sh 'make check'
