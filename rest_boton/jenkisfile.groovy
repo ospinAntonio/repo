@@ -38,7 +38,7 @@ pipeline {
          }
      stage('Deploy-qa') {
          when {
-             branch 'qa' 
+             branch 'master'
              }
              steps {
              sh 'echo publish'
