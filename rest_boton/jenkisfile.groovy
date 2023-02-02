@@ -5,23 +5,20 @@ pipeline {
     }
     stages {
          stage('Build') {
-          when {
-                branch 'master'
-            }
             steps {
-                sh 'java -version'
-                sh 'npm run build:dev'
+                sh 'make' 
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
             }
         }
-        stage('Test-sonar'){
-        when {
-                branch 'master'
-            }
+        stage('Test') {
             steps {
-                sh 'make check'
-                junit 'reports/pruebas/prueba.xml'
+                /* `make check` returns non-zero on test failures,
+                * using `true` to allow the Pipeline to continue nonetheless
+                */
+                sh 'make check || true' 
+                junit '**/target/*.xml' 
             }
-    }
+        }
          stage('Test-veracode'){
         when {
                 branch 'master'
