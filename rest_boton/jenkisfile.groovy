@@ -6,7 +6,7 @@ pipeline {
     stages {
          stage('Build') {
           when {
-                branch '*'
+                branch 'master'
             }
             steps {
                 sh 'java -version'
@@ -16,34 +16,30 @@ pipeline {
         stage('Test-sonar'){
         when {
                 branch 'master'
-                branch 'develop'
-                branch 'qa'
             }
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit 'reports/pruebas/prueba.xml'
             }
     }
          stage('Test-veracode'){
         when {
                 branch 'master'
-                branch 'develop'
-                branch 'qa'
             }
             steps {
-¿               sh 'make check'
-                junit 'reports/**/*.xml'
+                sh 'make check'
+                junit 'reports/pruebas/prueba.xml'
             }
      }
          stage('Test-publicar'){
          steps {
              sh 'make check'
-             junit 'reports/**/*.xml'
+             junit 'reports/pruebas/prueba.xml'
              }
          }
          stage('public-toDockerhub') {
          when {
-             branch 'dev'
+             branch 'master'
              }
              steps {
          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: jenkins_registry_cred_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
