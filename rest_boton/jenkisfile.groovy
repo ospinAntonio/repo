@@ -5,8 +5,12 @@ pipeline {
     }
     stages {
         stage('Build') { 
-            steps { 
-                sh 'make' 
+            when {
+                branch ''
+            }
+            steps {
+                sh 'java -version'
+                sh 'npm run build:dev'
             }
         }
         stage('Test'){
