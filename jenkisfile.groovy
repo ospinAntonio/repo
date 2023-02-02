@@ -5,9 +5,7 @@ pipeline {
     }
     stages {
         stage('Build') {
-            when {
-                branch ''
-            }
+            
             steps {
                 sh 'java -version'
                 sh 'npm run build:dev'
