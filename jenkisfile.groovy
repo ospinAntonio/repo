@@ -17,7 +17,7 @@ pipeline {
             }
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit 'reports/prueba.xml'
             }
         }
             stage('Test-veracode'){
@@ -26,13 +26,13 @@ pipeline {
             }
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit 'reports/prueba.xml'
             }
         }
         stage('Test-publicar'){
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit 'reports/prueba.xml'
             }
         }
         stage('public-toDockerhub') {
