@@ -1,82 +1,58 @@
-pipeline { 
-    agent any 
+pipeline {
+    agent any
     options {
         skipStagesAfterUnstable()
     }
     stages {
         stage('Build') {
-<<<<<<< HEAD
-          when {
-                branch '*'
-            }
-=======
-          
->>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
+            
             steps {
                 sh 'java -version'
-                sh 'java -jar ./build/libs/rest-1.0.jar'
+                sh 'npm run build:dev'
             }
         }
         stage('Test-sonar'){
         when {
-<<<<<<< HEAD
-                branch '*'
-=======
                 branch 'master'
->>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
             }
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit 'reports/prueba.xml'
             }
-       }
-<<<<<<< HEAD
-        stage('Test-veracode'){
+        }
+            stage('Test-veracode'){
         when {
-                branch '*'
+                 branch 'master'
             }
             steps {
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit 'reports/prueba.xml'
             }
-     }
-=======
-       
->>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
-         stage('Test-publicar'){
-         steps {
-             sh 'make check'
-             junit 'reports/**/*.xml'
-             }
-         }
-        stage('Deploy') {
+        }
+        stage('Test-publicar'){
             steps {
-                sh 'make publish'
+                sh 'make check'
+                junit 'reports/prueba.xml'
+            }
+        }
+        stage('public-toDockerhub') {
+        when {
+            branch 'master'
+        }
+        steps {
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: jenkins_registry_cred_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+            sh "docker login -e ${docker_email} -u ${env.USERNAME} -p ${env.PASSWORD} ${docker_registry_url}"
+            }
+            }
+        }
+        stage('Deploy-qa') {
+        when {
+                branch 'master'
+            }
+            steps {
+                sh 'echo publish'
+                sh 'kubeclt apply -f ingress.yaml'
             }
         }
     }
-<<<<<<< HEAD
-         stage('public-toDockerhub') {
-         when {
-             branch 'dev'
-             }
-             steps {
-         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: jenkins_registry_cred_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-             sh "docker login -e ${docker_email} -u ${env.USERNAME} -p ${env.PASSWORD} ${docker_registry_url}"
-             }
-             }
-         }
-     stage('Deploy-qa') {
-         when {
-             branch 'qa'
-             }
-             steps {
-             sh 'echo publish'
-             sh 'kubeclt apply -f ingress.yaml'
-         }
-     }
 }
-=======
-}
-    
->>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260

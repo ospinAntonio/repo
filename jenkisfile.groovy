@@ -6,9 +6,13 @@ pipeline {
     stages {
         stage('Build') {
 <<<<<<< HEAD
+<<<<<<< HEAD
             when {
                 branch ''
             }
+=======
+            
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
 =======
             
 >>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
@@ -24,7 +28,11 @@ pipeline {
             steps {
                 sh 'make check'
 <<<<<<< HEAD
+<<<<<<< HEAD
                 junit 'reports/**/*.xml'
+=======
+                junit 'reports/prueba.xml'
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
 =======
                 junit 'reports/prueba.xml'
 >>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
@@ -37,7 +45,11 @@ pipeline {
             steps {
                 sh 'make check'
 <<<<<<< HEAD
+<<<<<<< HEAD
                 junit 'reports/**/*.xml'
+=======
+                junit 'reports/prueba.xml'
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
 =======
                 junit 'reports/prueba.xml'
 >>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
@@ -47,7 +59,11 @@ pipeline {
             steps {
                 sh 'make check'
 <<<<<<< HEAD
+<<<<<<< HEAD
                 junit 'reports/**/*.xml'
+=======
+                junit 'reports/prueba.xml'
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
 =======
                 junit 'reports/prueba.xml'
 >>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
