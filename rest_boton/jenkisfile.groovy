@@ -5,23 +5,32 @@ pipeline {
     }
     stages {
         stage('Build') {
+<<<<<<< HEAD
           when {
                 branch '*'
             }
+=======
+          
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
             steps {
                 sh 'java -version'
-                sh 'npm run build:dev'
+                sh 'java -jar ./build/libs/rest-1.0.jar'
             }
         }
         stage('Test-sonar'){
         when {
+<<<<<<< HEAD
                 branch '*'
+=======
+                branch 'master'
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
             }
             steps {
                 sh 'make check'
                 junit 'reports/**/*.xml'
             }
        }
+<<<<<<< HEAD
         stage('Test-veracode'){
         when {
                 branch '*'
@@ -31,6 +40,9 @@ pipeline {
                 junit 'reports/**/*.xml'
             }
      }
+=======
+       
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
          stage('Test-publicar'){
          steps {
              sh 'make check'
@@ -43,6 +55,7 @@ pipeline {
             }
         }
     }
+<<<<<<< HEAD
          stage('public-toDockerhub') {
          when {
              branch 'dev'
@@ -63,3 +76,7 @@ pipeline {
          }
      }
 }
+=======
+}
+    
+>>>>>>> 5eb1ace953fb9e113fc43b385566ec02abf89260
