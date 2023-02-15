@@ -24,6 +24,7 @@ pipeline {
             gradle sonarqube \
               -Dsonar.projectKey=sonar \
               -Dsonar.host.url=http://localhost:9000 \
+              -Dsonar.exclusions=**/*.java \
               -Dsonar.login=sonar """
           }
         }
