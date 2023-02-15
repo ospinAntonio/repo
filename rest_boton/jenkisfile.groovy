@@ -10,6 +10,8 @@ pipeline {
         script{
           sh """
           ls -la
+          cd rest_boton
+          ls -la
           pwd
           gradle build """
         }
