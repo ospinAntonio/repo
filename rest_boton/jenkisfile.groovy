@@ -22,6 +22,7 @@ pipeline {
             sh """
             cd rest_boton 
             pwd
+            ls -la
             ./gradlew sonarqube \
               -Dsonar.projectKey=sonar \
               -Dsonar.host.url=http://localhost:9000 \
