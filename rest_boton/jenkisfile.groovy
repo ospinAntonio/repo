@@ -25,8 +25,7 @@ pipeline {
               -Dsonar.projectKey=rest \
               -Dsonar.host.url=http://localhost:9000 \
               -Dsonar.login=67302ead7900b8b32b8704ff237a501ea65b62a0r \
-              -Dsonar.exclusions=**/*.java \
-              -Dsonar-scanner -X """
+              -Dsonar.exclusions=**/*.java  """
           }
         }
       }
