@@ -29,16 +29,16 @@ pipeline {
         }
       }
     }
-    //stage('Build Docker Image') {
-      //steps {
-        //sh"""
-        //cd micro_imagen
-        //docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        //docker build -t testjenkinsdocker:1.0 .
-        //docker push $DOCKER_USER/testjenkinsdocker:1.0
-        //"""
-      //}
-    //}
+    stage('Build Docker Image') {
+      steps {
+        sh"""
+        cd micro_imagen
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        docker build -t testjenkinsdocker:1.0 .
+        docker push $DOCKER_USER/testjenkinsdocker:1.0
+        """
+      }
+    }
     stage('Push Docker Image') {
       steps {
         echo 'succesfull'
