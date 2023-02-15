@@ -24,7 +24,7 @@ pipeline {
             ./gradlew sonarqube \
              -Dsonar.projectKey=sonar \
              -Dsonar.host.url=http://localhost:9000 \
-             -Dsonar.login=7ac184fe787fd1fb40a080a6fbd80e36a07bb3e5 """
+             -Dsonar.login=6773b36a0d6d32d9e1a26ef66e4a59b855d374f7 """
           }
         }
       }
