@@ -26,10 +26,12 @@ pipeline {
               -Dsonar.host.url=http://localhost:9000 \
               -Dsonar.login=6773b36a0d6d32d9e1a26ef66e4a59b855d374f7 """
           }    
-        }
-            sh 'make check'
-            junit 'reports/**/*.xml' 
+        } 
       }
+      steps {
+                sh 'make check'
+                junit 'reports/**/*.xml' 
+            }
     }
     stage('Build Docker Image') {
       steps {
