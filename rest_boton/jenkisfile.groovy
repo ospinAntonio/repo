@@ -1,58 +1,48 @@
 pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
+  agent any
+  tools {
+    gradle  'Gradle 7.5.1'
+    //dockerTool 'Docker 20.10.21'
+  }
+  stages {
+    stage('Build') {
+      steps {
+        script{
+          sh """
+          ls -la
+          pwd
+          gradle build """
+        }
+      }
     }
-    stages {
-        stage('Build') {
-            
-            steps {
-                sh 'java -version'
-                sh 'npm run build:dev'
-            }
+    stage('test') {
+      steps {
+        script{
+          withSonarQubeEnv('sonar') {    
+            sh """
+            cd rest_boton
+            gradle sonarqube \
+            -Dsonar.projectKey=sonar \
+            -Dsonar.host.url=http://10.0.193.124:9000 \
+            -Dsonar.login=9172508ddaf76513596d51349b97fb2bbd4e9e43 """
+          }
         }
-        stage('Test-sonar'){
-        when {
-                branch 'master'
-            }
-            steps {
-                sh 'make check'
-                junit 'reports/prueba.xml'
-            }
-        }
-            stage('Test-veracode'){
-        when {
-                 branch 'master'
-            }
-            steps {
-                sh 'make check'
-                junit 'reports/prueba.xml'
-            }
-        }
-        stage('Test-publicar'){
-            steps {
-                sh 'make check'
-                junit 'reports/prueba.xml'
-            }
-        }
-        stage('public-toDockerhub') {
-        when {
-            branch 'master'
-        }
-        steps {
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: jenkins_registry_cred_id, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            sh "docker login -e ${docker_email} -u ${env.USERNAME} -p ${env.PASSWORD} ${docker_registry_url}"
-            }
-            }
-        }
-        stage('Deploy-qa') {
-        when {
-                branch 'master'
-            }
-            steps {
-                sh 'echo publish'
-                sh 'kubeclt apply -f ingress.yaml'
-            }
-        }
+      }
     }
+    //stage('Build Docker Image') {
+      //steps {
+        //sh"""
+        //cd micro_imagen
+        //docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        //docker build -t testjenkinsdocker:1.0 .
+        //docker push $DOCKER_USER/testjenkinsdocker:1.0
+        //"""
+      //}
+    //}
+    stage('Push Docker Image') {
+      steps {
+        echo 'succesfull'
+      }
+    }
+  }
 }
