@@ -21,7 +21,7 @@ pipeline {
           withSonarQubeEnv('sonar') {    
             sh """
             cd rest_boton
-            ./gradlew sonarqube \
+            gradlew sonarqube \
               -Dsonar.projectKey=sonar \
               -Dsonar.host.url=http://localhost:9000 \
               -Dsonar.login=sonar """
