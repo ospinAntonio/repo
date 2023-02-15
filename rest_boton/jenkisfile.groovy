@@ -17,7 +17,7 @@ pipeline {
     }
     stage('test') {
       steps {
-        script{
+        script {
           withSonarQubeEnv('sonar') {    
             sh """"
             cd rest_boton \
