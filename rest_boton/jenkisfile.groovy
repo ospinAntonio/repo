@@ -20,6 +20,7 @@ pipeline {
         script{
           withSonarQubeEnv('sonar') {    
             sh """
+            cd rest_boton
             ./gradlew sonarqube \
               -Dsonar.projectKey=sonar \
               -Dsonar.host.url=http://localhost:9000 \
@@ -31,7 +32,7 @@ pipeline {
     //stage('Build Docker Image') {
       //steps {
         //sh"""
-        //cd micro_imagen
+        //cd rest_boton
         //docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         //docker build -t testjenkinsdocker:1.0 .
         //docker push $DOCKER_USER/testjenkinsdocker:1.0
