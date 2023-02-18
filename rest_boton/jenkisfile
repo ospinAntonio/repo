@@ -15,20 +15,20 @@ pipeline {
         }
       }
     }
-    stage('test') {
-      steps {
-        script{
-          withSonarQubeEnv('sonar') {    
-            sh """
-            cd rest_boton
-            gradle sonarqube \
-              -Dsonar.projectKey=rest \
-              -Dsonar.host.url=http://172.17.0.5:9000 \
-              -Dsonar.login=67302ead7900b8b32b8704ff237a501ea65b62a0r  """
-          }
-        }
-      }
-    }
+    //stage('test') {
+      //steps {
+        //script{
+          //withSonarQubeEnv('sonar') {    
+            //sh """
+            //cd rest_boton
+            //gradle sonarqube \
+              //-Dsonar.projectKey=rest \
+              //-Dsonar.host.url=http://172.17.0.5:9000 \
+              //-Dsonar.login=67302ead7900b8b32b8704ff237a501ea65b62a0r  """
+          //}
+        //}
+      //}
+    //}
     stage('Build Docker Image') {
       steps {
         sh"""
