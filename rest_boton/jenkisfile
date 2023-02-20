@@ -34,7 +34,7 @@ pipeline {
         sh"""
         cd rest_boton
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        docker build -t $DOCKER_USERtestjenkins:1.0 .
+        docker build -t $DOCKER_USER/testjenkins:1.0 .
         docker push $DOCKER_USER/testjenkins:1.0
         """
       }
